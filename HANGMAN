@@ -1,0 +1,31 @@
+import random
+from hangmanWords import word_list
+from hangmanArt import stages,logo
+
+length = random.randint(3,7)
+myList = word_list[word_list.apply(len)== length]
+chosenWord = random.choice(myList)
+lives = len(chosenWord)
+
+print(f"The solution is {chosenWord}")
+print(logo)
+display = []
+
+for i in range(len(chosenWord)):
+     display.append("_")
+
+while "_" in display:
+     guess = input("\nGuess a letter: ").lower()
+     for i in range(len(chosenWord)):
+         letter = chosenWord[i]
+         if letter == guess:
+             display[i] = letter
+     if guess not in chosenWord:
+        lives = lives-1
+        if lives == 0:
+            print("\nYou lose")
+            exit(1)
+     print(f"{' '.join(display)}")
+     print(stages[lives])
+else:
+     print("\nYou have won")
